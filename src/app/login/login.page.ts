@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-login',
@@ -7,10 +9,44 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+      login:any={
+      Usuario:"",
+      Password:""
+  }
+  field:string=""
 
-  constructor(private router: Router) { }
+  constructor(private toastController: ToastController, private router: Router ) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  async presentToast(message: string){
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  ingresar(){
+    if(this.validateModel(this.login)){
+      this.presentToast("Bienvenido "+this.login.Usuario);
+      let navigationExtras:NavigationExtras={
+        state: {user:this.login.Usuario}
+      }
+      this.router.navigate(['home'], navigationExtras);
+    }else{
+      this.presentToast("falta: "+this.field);
+    }
+  }
+
+  validateModel(model:any){
+    for (var [key, value] of Object.entries(model)){
+      if (value==""){
+        this.field=key;
+        return false;
+      }
+    }
+    return true;
   }
 
   goToRecuperarContrasena(){
