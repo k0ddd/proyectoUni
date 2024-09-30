@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class LoginPage implements OnInit {
   }
   field:string=""
 
-  constructor(private toastController: ToastController, private router: Router ) { }
+  constructor(private toastController: ToastController, private router: Router, private authService: AuthService ) { }
 
   ngOnInit() {}
 
