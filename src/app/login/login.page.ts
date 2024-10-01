@@ -30,15 +30,28 @@ export class LoginPage implements OnInit {
 
   ingresar(){
     if(this.validateModel(this.login)){
-      this.presentToast("Bienvenido "+this.login.Usuario);
-      let navigationExtras:NavigationExtras={
-        state: {user:this.login.Usuario}
+      const email = this.login.Uusario;
+      const password = this.login.Password;
+
+      this.authService.login(email, password).subscribe(
+        (user) => {
+          if (email.endsWith('@profesor.duocuc.cl')){
+            this.presentToast("Bienvenidx docenete")
+            this.router.navigate(['/home']);
+          } else if (email.endsWith('@duocuc.cl')){
+            this.presentToast("Bienvenide Alumne");
+            this.router.navigate(['/home-alumno']);
+          }
+        },
+        (error) => {
+          this.presentToast(error);
+        }
+      );
+      } else {
+        this.presentToast("Falta: "+this.field);
       }
-      this.router.navigate(['home'], navigationExtras);
-    }else{
-      this.presentToast("falta: "+this.field);
-    }
   }
+
 
   validateModel(model:any){
     for (var [key, value] of Object.entries(model)){
