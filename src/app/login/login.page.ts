@@ -15,7 +15,11 @@ import { ToastController } from '@ionic/angular';
 export class LoginPage implements OnInit {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   constructor(private router: Router) { }
+=======
+  constructor(private toastController: ToastController, private router: Router ) { }
+>>>>>>> parent of d973033 (routing authguard hecho)
 =======
   constructor(private toastController: ToastController, private router: Router ) { }
 >>>>>>> parent of d973033 (routing authguard hecho)
